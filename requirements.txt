@@ -1,0 +1,18 @@
+# Metro Fresh - Requirements
+# Install with: python -m pip install -r requirements.txt
+
+fastapi
+uvicorn[standard]
+sqlalchemy
+pydantic
+python-multipart
+
+# Optional / feature-dependent:
+# Add these only if your source code imports them.
+# passlib[bcrypt]       # password hashing
+# python-jose[cryptography]  # JWT authentication
+# qrcode[pil]           # generate UPI QR codes
+# python-barcode[images] # barcode label generation
+# pandas                # analytics / CSV import-export
+# openpyxl              # Excel import-export
+# pytest                # tests

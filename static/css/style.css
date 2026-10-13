@@ -1,0 +1,641 @@
+/* =========================================================
+   Enterprise Supermarket POS & Retail Management Suite
+   UI Style Sheet — Polished & Aligned
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
+
+/* ─── Design Tokens ────────────────────────────────────── */
+:root {
+    --primary-blue:        #2563eb;
+    --primary-blue-hover:  #1d4ed8;
+    --primary-green:       #16a34a;
+    --primary-green-hover: #15803d;
+    --deep-green:          #14532d;
+    --surface-bg:          #f1f5f9;
+    --sidebar-bg:          #0f172a;
+    --sidebar-card:        #1e293b;
+    --card-bg:             #ffffff;
+    --border-light:        #e2e8f0;
+    --border-gray:         #cbd5e1;
+    --text-primary:        #0f172a;
+    --text-secondary:      #64748b;
+    --text-muted:          #94a3b8;
+
+    /* Spacing scale */
+    --nav-py:    0.45rem;
+    --nav-px:    0.75rem;
+    --card-p:    1.25rem;
+    --th-py:     0.6rem;
+    --th-px:     0.75rem;
+    --td-py:     0.65rem;
+    --td-px:     0.75rem;
+    --input-h:   2.375rem;   /* 38px — uniform input/button height */
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.25rem;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* ─── Base ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--surface-bg);
+    color: var(--text-primary);
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* ─── Custom Scrollbar ─────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* ─── Screen Container ─────────────────────────────────── */
+.screen-view {
+    animation: fadeInScreen 0.15s ease;
+}
+@keyframes fadeInScreen {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Keyboard Shortcut Badges ─────────────────────────── */
+.kbd-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 6px;
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: #475569;
+    background-color: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    box-shadow: 0 1px 0 #c8d3e0;
+    white-space: nowrap;
+}
+.kbd-dark {
+    color: #cbd5e1;
+    background-color: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 1px 0 #1e293b;
+}
+
+/* ─── Sidebar Navigation ───────────────────────────────── */
+#app-sidebar {
+    transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Unified nav item — both owner & employee groups */
+.nav-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: var(--nav-py) var(--nav-px);
+    border-radius: var(--radius-md);
+    font-size: 0.8125rem;       /* 13px */
+    font-weight: 500;
+    color: #94a3b8;
+    gap: 0.6rem;
+    transition: background 0.12s ease, color 0.12s ease;
+    text-align: left;
+    line-height: 1.4;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+}
+.nav-item:hover {
+    background: rgba(255,255,255,0.07);
+    color: #f1f5f9;
+}
+.nav-item i,
+.nav-item svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+}
+.nav-item.active {
+    background: #2563eb !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    box-shadow: 0 3px 10px rgba(37,99,235,0.30);
+}
+.nav-item.active i,
+.nav-item.active svg {
+    color: #ffffff !important;
+}
+
+/* POS Billing nav special highlight */
+#nav-owner-pos .sidebar-label,
+#nav-employee-pos .sidebar-label {
+    font-weight: 700;
+}
+
+/* Sidebar group divider label */
+.sidebar-group-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #475569;
+    padding: 0.5rem 0.75rem 0.25rem;
+}
+
+/* ─── Collapsed Sidebar ────────────────────────────────── */
+.sidebar-collapsed #app-sidebar { width: 4rem !important; }
+.sidebar-collapsed #app-sidebar .sidebar-label,
+.sidebar-collapsed #app-sidebar .sidebar-badge { display: none !important; }
+.sidebar-collapsed #app-sidebar .nav-item {
+    justify-content: center !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    gap: 0 !important;
+}
+.sidebar-collapsed #app-sidebar .sidebar-header-text { display: none !important; }
+
+/* Collapsed tooltip */
+.sidebar-collapsed #app-sidebar .nav-item {
+    position: relative;
+}
+.sidebar-collapsed #app-sidebar .nav-item:hover::after {
+    content: attr(title);
+    position: absolute;
+    left: calc(100% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 5px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    border: 1px solid #334155;
+    z-index: 100;
+    pointer-events: none;
+}
+
+/* ─── Page / Screen Header Bars ────────────────────────── */
+.page-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    background: #ffffff;
+    padding: 1.1rem 1.25rem;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+}
+.page-header h2 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+}
+.page-header p {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin: 0.2rem 0 0;
+}
+
+/* ─── Dashboard Summary Cards ──────────────────────────── */
+.dash-metric-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-xl);
+    padding: var(--card-p);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    min-height: 96px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.dash-metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: #cbd5e1;
+}
+.dash-metric-card .metric-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #64748b;
+}
+.dash-metric-card .metric-value {
+    font-size: 1.6rem;
+    font-weight: 900;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.1;
+    margin-top: 0.35rem;
+}
+.dash-metric-card .metric-icon {
+    padding: 0.55rem;
+    border-radius: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.dash-panel {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ─── Category Pills (POS) ─────────────────────────────── */
+.cat-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.85rem;
+    border-radius: 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+    border: 1px solid transparent;
+    flex-shrink: 0;
+}
+.cat-pill.active {
+    background-color: #2563eb;
+    color: #ffffff;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(37,99,235,0.25);
+    border-color: #2563eb;
+}
+.cat-pill:not(.active) {
+    background-color: #ffffff;
+    color: #475569;
+    border-color: #e2e8f0;
+}
+.cat-pill:not(.active):hover {
+    background-color: #f8fafc;
+    color: #0f172a;
+    border-color: #cbd5e1;
+}
+
+/* ─── POS Product Cards ────────────────────────────────── */
+.pos-prod-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-lg);
+    transition: transform 0.13s ease, box-shadow 0.13s ease, border-color 0.13s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.pos-prod-card:hover {
+    transform: translateY(-2px);
+    border-color: #93c5fd;
+    box-shadow: 0 6px 16px -2px rgba(37,99,235,0.13);
+}
+.pos-prod-card:active {
+    transform: scale(0.97);
+}
+
+/* ─── Tables ───────────────────────────────────────────── */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+table th {
+    padding: var(--th-py) var(--th-px);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    background: #f8fafc;
+    white-space: nowrap;
+}
+table td {
+    padding: var(--td-py) var(--td-px);
+    font-size: 0.8rem;
+    vertical-align: middle;
+    color: #1e293b;
+}
+table tbody tr {
+    transition: background 0.08s ease;
+}
+table tbody tr:hover {
+    background-color: #f8fafc;
+}
+.table-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ─── Form Inputs & Selects (Uniform Height) ───────────── */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+input[type="search"],
+select,
+textarea {
+    font-family: inherit;
+    font-size: 0.8rem;
+    transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+}
+
+/* Filter / search input with icon: icon alignment helper */
+.input-icon-wrap {
+    position: relative;
+}
+.input-icon-wrap .input-icon {
+    position: absolute;
+    left: 0.65rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1rem;
+    height: 1rem;
+    color: #94a3b8;
+    pointer-events: none;
+}
+.input-icon-wrap input {
+    padding-left: 2.2rem;
+}
+
+/* ─── Payment Modal Tabs ───────────────────────────────── */
+.pay-tab {
+    transition: all 0.13s ease;
+    border-bottom-width: 2px;
+}
+.pay-tab.active {
+    border-color: #2563eb;
+    color: #2563eb;
+    background-color: #eff6ff;
+    font-weight: 700;
+}
+
+/* ─── Thermal Receipt (58mm / 80mm) ────────────────────── */
+#thermal-receipt-paper {
+    font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
+    line-height: 1.35;
+    color: #000;
+    background-color: #fff;
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2);
+    position: relative;
+    transition: width 0.2s ease;
+}
+#thermal-receipt-paper.paper-58mm { width: 58mm; max-width: 58mm; font-size: 11px; }
+#thermal-receipt-paper.paper-80mm { width: 80mm; max-width: 80mm; font-size: 12px; }
+#thermal-receipt-paper::before {
+    content: '';
+    position: absolute;
+    top: -6px; left: 0; right: 0;
+    height: 6px;
+    background: radial-gradient(circle, transparent 50%, #fff 50%);
+    background-size: 10px 10px;
+}
+#thermal-receipt-paper hr {
+    border: none;
+    border-top: 1px dashed #444;
+    margin: 6px 0;
+}
+
+/* Reprint Banner */
+.reprint-banner {
+    background: #000;
+    color: #fff;
+    font-weight: 800;
+    text-align: center;
+    padding: 3px 0;
+    letter-spacing: 2px;
+    font-size: 11px;
+    margin-bottom: 6px;
+}
+
+/* ─── Purchase Order & Barcode Print ───────────────────── */
+#purchase-order-printable {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #0f172a;
+    background-color: #fff;
+}
+#barcode-label-printable {
+    font-family: 'JetBrains Mono', monospace;
+    color: #000;
+    background: #fff;
+}
+
+/* ─── Print CSS ────────────────────────────────────────── */
+@media print {
+    body { background: #fff !important; }
+    body * { visibility: hidden; }
+
+    .print-receipt-active #thermal-receipt-paper,
+    .print-receipt-active #thermal-receipt-paper * { visibility: visible; }
+    .print-receipt-active #thermal-receipt-paper {
+        position: absolute; left: 0; top: 0;
+        margin: 0 !important; padding: 3mm !important;
+        box-shadow: none !important; border: none !important;
+    }
+    .print-receipt-active #thermal-receipt-paper.paper-58mm { width: 58mm !important; }
+    .print-receipt-active #thermal-receipt-paper.paper-80mm { width: 80mm !important; }
+
+    .print-po-active #purchase-order-printable,
+    .print-po-active #purchase-order-printable * { visibility: visible; }
+    .print-po-active #purchase-order-printable {
+        position: absolute; left: 0; top: 0;
+        width: 100% !important; margin: 0 !important;
+        padding: 10mm !important; box-shadow: none !important; border: none !important;
+    }
+
+    .print-label-active #barcode-label-printable,
+    .print-label-active #barcode-label-printable * { visibility: visible; }
+    .print-label-active #barcode-label-printable {
+        position: absolute; left: 0; top: 0;
+        margin: 0 !important; padding: 2mm !important;
+        box-shadow: none !important; border: none !important;
+    }
+}
+
+/* ─── Camera Scanner ───────────────────────────────────── */
+.camera-scan-region { position: relative; overflow: hidden; }
+.camera-laser-line {
+    position: absolute;
+    top: 0; left: 5%; right: 5%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #22c55e, #10b981, transparent);
+    box-shadow: 0 0 12px 3px rgba(34,197,94,0.85);
+    animation: scanLaser 2s infinite ease-in-out alternate;
+    pointer-events: none;
+}
+@keyframes scanLaser {
+    0%   { top: 8%;  opacity: 0.8; }
+    50%  {           opacity: 1;   }
+    100% { top: 92%; opacity: 0.8; }
+}
+.camera-scan-badge { animation: popIn 0.25s cubic-bezier(0.175,0.885,0.32,1.275); }
+@keyframes popIn {
+    0%   { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1);   opacity: 1; }
+}
+
+/* ─── Responsive Height Adjustments ───────────────────── */
+@media screen and (max-height: 768px) {
+    .nav-item {
+        padding-top: 0.35rem !important;
+        padding-bottom: 0.35rem !important;
+        font-size: 0.75rem !important;
+    }
+    #screen-owner-dashboard { padding: 0.875rem !important; }
+    #screen-owner-dashboard .max-w-7xl { gap: 0.875rem !important; }
+    .dash-metric-card {
+        padding: 0.85rem !important;
+        min-height: 84px !important;
+    }
+    .dash-metric-card .metric-value { font-size: 1.35rem !important; }
+}
+
+@media screen and (min-width: 1920px) {
+    #screen-owner-dashboard .max-w-7xl { max-width: 1750px !important; }
+}
+
+/* ─── Dashboard Panel / White Card ────────────────────── */
+.white-panel {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+}
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+.panel-header h3 {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0;
+}
+.panel-header p {
+    font-size: 0.7rem;
+    color: #64748b;
+    margin: 0.15rem 0 0;
+}
+
+/* ─── Status / Badge Chips ─────────────────────────────── */
+.status-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+}
+
+/* ─── Action Buttons (consistent sizing) ──────────────── */
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius-sm);
+    transition: background 0.12s ease, color 0.12s ease;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+}
+
+/* ─── Filter / Toolbar Row ─────────────────────────────── */
+.filter-bar {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-lg);
+    padding: 0.65rem 0.85rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+/* ─── Payment Settlement rows (dashboard) ─────────────── */
+.pay-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--radius-md);
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    font-size: 0.78rem;
+}
+.pay-row strong {
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.85rem;
+}
+
+/* ─── Employee Dashboard Metric Cards ─────────────────── */
+.emp-metric-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-xl);
+    padding: 1rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.emp-metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ─── Attendance / Salary Table Sticky Header ─────────── */
+.table-sticky-head thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #f8fafc;
+}
+
+/* ─── Notification badge pulse ─────────────────────────── */
+#notif-badge {
+    min-width: 1rem;
+    text-align: center;
+    line-height: 1rem;
+    padding: 0 3px;
+}
